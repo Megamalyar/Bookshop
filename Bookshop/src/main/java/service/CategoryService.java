@@ -1,4 +1,4 @@
-package dao;
+package service;
 
 import model.Category;
 
@@ -6,9 +6,9 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Malyar on 06.04.2015.
+ * Created by Malyar on 19.05.2015.
  */
-public interface CategoryDao {
+public interface CategoryService {
 
     public Category getCategoryByName(String name);
 

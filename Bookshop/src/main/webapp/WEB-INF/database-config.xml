@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <context:annotation-config />
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/bookshop"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value="postgres"/>
+    </bean>
+
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="categoryDao" class="dao.HibernateCategoryDao"/>
+    <bean id="authorDao" class="dao.HibernateAuthorDao"/>
+    <bean id="bookDao" class="dao.HibernateBookDao"/>
+    <bean id="orderDao" class="dao.HibernateOrderDao"/>
+
+    <bean id="categoryService" class="service.CategoryServiceImpl"/>
+    <bean id="authorService" class="service.AuthorServiceImpl"/>
+    <bean id="bookService" class="service.BookServiceImpl"/>
+    <bean id="orderService" class="service.OrderServiceImpl"/>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="model"/>
+        <property name="hibernateProperties">
+            <value>
+                <!--hibernate.current_session_context_class=thread-->
+                hibernate.dialect=org.hibernate.dialect.PostgreSQL9Dialect
+                hibernate.show_sql=true
+                hibernate.hbm2ddl.auto=update
+            </value>
+        </property>
+    </bean>
+
+</beans>

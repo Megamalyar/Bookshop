@@ -5,6 +5,7 @@ import dao.BookDaoImpl;
 import dao.CategoryDao;
 import dao.CategoryDaoImpl;
 import model.Category;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import service.BookService;
+import service.CategoryService;
 
 /**
  * Created by Malyar on 15.04.2015.
@@ -20,14 +23,17 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/admin")
 public class CategoryController {
 
-    //@Autowired
-    private CategoryDao categoryDao = new CategoryDaoImpl();
+    @Autowired
+    private CategoryService categoryService;
+    //private CategoryDao categoryService = new CategoryDaoImpl();
 
-    private BookDao bookDao = new BookDaoImpl();
+    @Autowired
+    private BookService bookService;
+    //private BookDao bookService = new BookDaoImpl();
 
     @RequestMapping(value = "/categories" ,method = RequestMethod.GET)
     public String showCategories(ModelMap model) {
-        model.addAttribute("categories", categoryDao.getAllCategories());
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "admin/category/categories";
     }
 
@@ -40,14 +46,14 @@ public class CategoryController {
     public String addNewCategory(@RequestParam("name") String name) {
         Category category = new Category();
         category.setCategoryName(name);
-        categoryDao.createCategory(category);
+        categoryService.createCategory(category);
         return "redirect:/admin/categories";
     }
 
     @RequestMapping(value = "/categories/delete/{id}" ,method = RequestMethod.GET)
     public String deleteCategory(@PathVariable("id") String categoryId) {
-        Category category = categoryDao.getCategoryById(Long.parseLong(categoryId));
-        categoryDao.removeCategory(category);
+        Category category = categoryService.getCategoryById(Long.parseLong(categoryId));
+        categoryService.removeCategory(category);
         return "redirect:/admin/categories";
     }
 
@@ -57,21 +63,21 @@ public class CategoryController {
                                  @RequestParam("name") String categoryName,
                                  @RequestParam("bookId") String bookId) {
         Long id = Long.parseLong(categoryId);
-        Category category = categoryDao.getCategoryById(id);
+        Category category = categoryService.getCategoryById(id);
         category.setCategoryName(categoryName);
         Long bId = Long.parseLong(bookId);
         if (!bId.equals(0L)) {
-            category.addBook(bookDao.getBookById(bId));
+            category.addBook(bookService.getBookById(bId));
         }
-        categoryDao.updateCategory(category);
+        categoryService.updateCategory(category);
         return "redirect:/admin/categories";
     }
 
     @RequestMapping(value = "/categories/edit/{id}" ,method = RequestMethod.GET)
     public ModelAndView editCategory(@PathVariable("id") String categoryId, ModelMap model) {
-        Category category = categoryDao.getCategoryById(Long.parseLong(categoryId));
+        Category category = categoryService.getCategoryById(Long.parseLong(categoryId));
         model.addAttribute("category", category);
-        model.addAttribute("books", bookDao.getAllBooks());
+        model.addAttribute("books", bookService.getAllBooks());
         return new ModelAndView("admin/category/category", model);
     }
 }

@@ -1,4 +1,4 @@
-package dao;
+package service;
 
 import model.Book;
 
@@ -6,9 +6,9 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Malyar on 05.04.2015.
+ * Created by Malyar on 20.05.2015.
  */
-public interface BookDao {
+public interface BookService {
 
     public Book getBookByTitle(String title);
 

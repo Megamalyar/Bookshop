@@ -1,15 +1,14 @@
-package dao;
+package service;
 
 import model.Author;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 /**
- * Created by Malyar on 04.04.2015.
+ * Created by Malyar on 20.05.2015.
  */
-public interface AuthorDao {
+public interface AuthorService {
 
     public Author getAuthorByName(String name);
 
@@ -22,5 +21,4 @@ public interface AuthorDao {
     public void removeAuthor(Author author);
 
     public Author updateAuthor(Author author);
-    
 }

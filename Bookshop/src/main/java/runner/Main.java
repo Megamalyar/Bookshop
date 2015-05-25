@@ -7,8 +7,9 @@ import model.Category;
 import model.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.Set;
+import service.AuthorService;
+import service.BookService;
+import service.CategoryService;
 
 /**
  * Created by Malyar on 04.04.2015.
@@ -22,6 +23,7 @@ public class Main {
 //        CategoryDao cDao = new CategoryDaoImpl();
 //        OrderDao oDao = new OrderDaoImpl();
 //        UserDao uDao = new UserDaoImpl();
+        test();
     }
 
     public static void initDatabase() {
@@ -74,5 +76,22 @@ public class Main {
             bDao.updateBook(b);
         }
 
+    }
+
+    public static void test() {
+        ApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[]{"WEB-INF/database-config.xml"});
+
+        CategoryService categoryService = (CategoryService)context.getBean("categoryService");
+        AuthorService authorService = (AuthorService)context.getBean("authorService");
+        BookService bookService = (BookService)context.getBean("bookService");
+
+        Category category = categoryService.getCategoryById(11L);
+        //Author author = authorService.getAuthorById(10L);
+        Book book = bookService.getBookById(10L);
+        book.addCategory(category);
+        //book.setBookTitle("Book10(edited)");
+        bookService.updateBook(book);
+        //categoryService.getAllCategories();
     }
 }

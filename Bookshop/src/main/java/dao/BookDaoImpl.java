@@ -59,26 +59,10 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public List<Book> getBooksAuthorFiltered(Long authorId) {
-        List<Book> allBooks = em.createQuery(
-                "SELECT a FROM Book a", Book.class).getResultList();
-        return allBooks;
-    }
-
-    @Override
     public void removeBook(Book book) {
         tx.begin();
         em.remove(book);
         tx.commit();
-    }
-
-    @Override
-    public Book updateBookTitle(Book book, String newTitle) {
-        tx.begin();
-        book.setBookTitle(newTitle);
-        em.merge(book);
-        tx.commit();
-        return book;
     }
 
     public Book updateBook(Book book) {

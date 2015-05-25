@@ -66,15 +66,6 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public Category updateCategoryName(Category category, String newName) {
-        tx.begin();
-        category.setCategoryName(newName);
-        em.merge(category);
-        tx.commit();
-        return category;
-    }
-
-    @Override
     public Category updateCategory(Category category) {
         tx.begin();
         em.merge(category);

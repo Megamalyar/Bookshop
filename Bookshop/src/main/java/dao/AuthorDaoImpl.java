@@ -80,29 +80,6 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public void removeAuthorById(Long id) {
-        init();
-        Author author = em.find(Author.class, id);
-        if (author != null) {
-            tx.begin();
-            em.remove(author);
-            tx.commit();
-        } else {
-            System.out.println("author with ID = " + id + " is not found");
-        }
-    }
-
-    @Override
-    public Author updateAuthorName(Author author, String newName) {
-        init();
-        tx.begin();
-        author.setAuthorName(newName);
-        em.merge(author);
-        tx.commit();
-        return author;
-    }
-
-    @Override
     public Author updateAuthor(Author author) {
         init();
         tx.begin();

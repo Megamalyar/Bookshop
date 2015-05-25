@@ -110,6 +110,18 @@
             <version>3.5.6-Final</version>
         </dependency>-->
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.3.8.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4-1201-jdbc4</version>
+        </dependency>
+
         <!-- javassist is used for http://stackoverflow.com/questions/7297565/javassist-what-is-the-main-idea-and-where-real-use/7297838 -->
         <dependency>
             <groupId>javassist</groupId>

@@ -8,6 +8,8 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
+            /WEB-INF/database-config.xml
+            /WEB-INF/application-config.xml
             /WEB-INF/dispatcher-servlet.xml
             /WEB-INF/spring-security.xml
         </param-value>
